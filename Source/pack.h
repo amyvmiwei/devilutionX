@@ -1,4 +1,3 @@
-//HEADER_GOES_HERE
 #ifndef __PACK_H__
 #define __PACK_H__
 

@@ -8,6 +8,10 @@
 #include "display.h"
 #include <SDL.h>
 
+#ifdef _XBOX
+#include "xboxfuncs.h"
+#endif
+
 namespace dvl {
 
 int sgdwLockCount;
@@ -27,7 +31,7 @@ SDL_Palette *palette;
 unsigned int pal_surface_palette_version = 0;
 
 /** 24-bit renderer texture surface */
-SDL_Surface *renderer_texture_surface = nullptr;
+SDL_Surface *renderer_texture_surface = NULL;
 
 /** 8-bit surface wrapper around #gpBuffer */
 SDL_Surface *pal_surface;
@@ -69,7 +73,7 @@ static void dx_create_primary_surface()
 		renderer_texture_surface = SDL_CreateRGBSurfaceWithFormat(0, width, height, SDL_BITSPERPIXEL(format), format);
 	}
 #endif
-	if (GetOutputSurface() == nullptr) {
+	if (GetOutputSurface() == NULL) {
 		ErrSdl();
 	}
 }
@@ -130,17 +134,19 @@ void unlock_buf(BYTE idx)
 
 void dx_cleanup()
 {
+#ifndef _XBOX
 	if (ghMainWnd)
 		SDL_HideWindow(ghMainWnd);
+#endif
 	sgMemCrit.Enter();
 	sgdwLockCount = 0;
 	gpBuffer = NULL;
 	sgMemCrit.Leave();
 
-	if (pal_surface == nullptr)
+	if (pal_surface == NULL)
 		return;
 	SDL_FreeSurface(pal_surface);
-	pal_surface = nullptr;
+	pal_surface = NULL;
 	SDL_FreePalette(palette);
 	SDL_FreeSurface(renderer_texture_surface);
 	SDL_DestroyTexture(texture);
@@ -183,6 +189,10 @@ void BltFast(SDL_Rect *src_rect, SDL_Rect *dst_rect)
 
 void Blit(SDL_Surface *src, SDL_Rect *src_rect, SDL_Rect *dst_rect)
 {
+#ifdef _DEBUG
+	CXBFunctions::GetMemoryUsage();
+#endif
+
 	SDL_Surface *dst = GetOutputSurface();
 #ifndef USE_SDL1
 	if (SDL_BlitSurface(src, src_rect, dst, dst_rect) < 0)
@@ -196,7 +206,7 @@ void Blit(SDL_Surface *src, SDL_Rect *src_rect, SDL_Rect *dst_rect)
 	}
 
 	SDL_Rect scaled_dst_rect;
-	if (dst_rect != nullptr) {
+	if (dst_rect != NULL) {
 		scaled_dst_rect = *dst_rect;
 		ScaleOutputRect(&scaled_dst_rect);
 		dst_rect = &scaled_dst_rect;
@@ -214,7 +224,7 @@ void Blit(SDL_Surface *src, SDL_Rect *src_rect, SDL_Rect *dst_rect)
 		SDL_Surface *stretched = SDL_CreateRGBSurface(SDL_SWSURFACE, dst_rect->w, dst_rect->h, src->format->BitsPerPixel,
 		    src->format->Rmask, src->format->Gmask, src->format->BitsPerPixel, src->format->Amask);
 		SDL_SetColorKey(stretched, SDL_SRCCOLORKEY, src->format->colorkey);
-		if (src->format->palette != nullptr)
+		if (src->format->palette != NULL)
 			SDL_SetPalette(stretched, SDL_LOGPAL, src->format->palette->colors, 0, src->format->palette->ncolors);
 		SDL_Rect stretched_rect = { 0, 0, dst_rect->w, dst_rect->h };
 		if (SDL_SoftStretch(src, src_rect, stretched, &stretched_rect) < 0

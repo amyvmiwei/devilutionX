@@ -880,17 +880,26 @@ static void DrawGame(int x, int y)
 	sx = (SCREEN_WIDTH % 64) / 2;
 	sy = (VIEWPORT_HEIGHT % 32) / 2;
 
+	double dWidth = 0;
+	double dHeight = 0;
+
 	if (zoomflag) {
-		chunks = ceil(SCREEN_WIDTH / 64);
-		blocks = ceil(VIEWPORT_HEIGHT / 32);
+		dWidth = SCREEN_WIDTH / 64;
+		dHeight = VIEWPORT_HEIGHT / 32;
+
+		chunks = ceil(dWidth);
+		blocks = ceil(dHeight);
 
 		gpBufStart = &gpBuffer[BUFFER_WIDTH * SCREEN_Y];
 		gpBufEnd = &gpBuffer[BUFFER_WIDTH * (VIEWPORT_HEIGHT + SCREEN_Y)];
 	} else {
 		sy -= 32;
 
-		chunks = ceil(SCREEN_WIDTH / 2 / 64) + 1; // TODO why +1?
-		blocks = ceil(VIEWPORT_HEIGHT / 2 / 32);
+		dWidth = SCREEN_WIDTH / 2 / 64;
+		dHeight = VIEWPORT_HEIGHT / 2 / 32;
+
+		chunks = ceil(dWidth) + 1; // TODO why +1?
+		blocks = ceil(dHeight);
 
 		gpBufStart = &gpBuffer[(-17 + SCREEN_Y) * BUFFER_WIDTH];
 		gpBufEnd = &gpBuffer[(160 + SCREEN_Y) * BUFFER_WIDTH];
@@ -904,7 +913,7 @@ static void DrawGame(int x, int y)
 	y--;
 
 	// Keep evaulating untill MicroTiles can't affect screen
-	blocks += ceil(MicroTileLen / 2);
+	blocks += ceil((double)MicroTileLen / 2);
 
 	if (PANELS_COVER) {
 		if (zoomflag) {

@@ -1,4 +1,3 @@
-//HEADER_GOES_HERE
 #ifndef __WAVE_H__
 #define __WAVE_H__
 

@@ -1,4 +1,3 @@
-//HEADER_GOES_HERE
 #ifndef __PALETTE_H__
 #define __PALETTE_H__
 

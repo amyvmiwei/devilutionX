@@ -1,4 +1,3 @@
-//HEADER_GOES_HERE
 #ifndef __TRIGS_H__
 #define __TRIGS_H__
 

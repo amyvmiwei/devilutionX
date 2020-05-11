@@ -31,7 +31,7 @@ inline const Uint8 *SDLC_GetKeyState()
 #ifndef USE_SDL1
 	return SDL_GetKeyboardState(nullptr);
 #else
-	return SDL_GetKeyState(nullptr);
+	return SDL_GetKeyState(NULL);
 #endif
 }
 

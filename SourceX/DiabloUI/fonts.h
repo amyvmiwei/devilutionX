@@ -7,7 +7,11 @@
 #include "DiabloUI/art.h"
 
 #ifndef TTF_FONT_PATH
+#ifdef _XBOX
+#define TTF_FONT_PATH "D:\\assets\\CharisSILB.ttf"
+#else
 #define TTF_FONT_PATH "CharisSILB.ttf"
+#endif
 #endif
 
 namespace dvl {

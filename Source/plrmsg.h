@@ -1,4 +1,3 @@
-//HEADER_GOES_HERE
 #ifndef __PLRMSG_H__
 #define __PLRMSG_H__
 

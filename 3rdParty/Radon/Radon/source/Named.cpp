@@ -1,6 +1,6 @@
 // Copyright Dmitro bjornus Szewczuk 2017
 
-#include "../include/Radon.hpp"
+#include "../include/Radon.h"
 
 namespace radon
 {

@@ -180,7 +180,7 @@ extern int opposite[8];
 extern int offset_x[8];
 extern int offset_y[8];
 
-/** unused */
+/* unused */
 extern int rnd5[4];
 extern int rnd10[4];
 extern int rnd20[4];

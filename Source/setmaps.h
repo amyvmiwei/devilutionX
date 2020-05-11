@@ -1,4 +1,3 @@
-//HEADER_GOES_HERE
 #ifndef __SETMAPS_H__
 #define __SETMAPS_H__
 

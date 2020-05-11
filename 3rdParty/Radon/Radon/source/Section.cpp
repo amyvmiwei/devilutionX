@@ -1,6 +1,6 @@
 // Copyright Dmitro bjornus Szewczuk 2017
 
-#include "../include/Radon.hpp"
+#include "../include/Radon.h"
 
 #include <assert.h>
 
@@ -19,13 +19,13 @@ namespace radon
 
 	Key *Section::getKey(const std::string & name)
 	{
-		for (auto & key : keys)
+		for (int i = 0; i < (int)keys.size(); i++)
 		{
-			if (key.getName() == name)
-				return &key;
+			if (keys[i].getName() == name)
+				return &keys[i];
 		}
 
-		return nullptr;
+		return NULL;
 	}
 
 	void Section::addKey(Key key)

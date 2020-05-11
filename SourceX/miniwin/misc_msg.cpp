@@ -1,4 +1,6 @@
+#ifndef _XBOX
 #include <cstdint>
+#endif
 #include <deque>
 #include <SDL.h>
 
@@ -8,7 +10,9 @@
 #include "controls/controller_motion.h"
 #include "controls/game_controls.h"
 #include "controls/plrctrls.h"
+#ifndef _XBOX
 #include "controls/touch.h"
+#endif
 #include "display.h"
 #include "controls/controller.h"
 
@@ -35,7 +39,7 @@ void SetCursorPos(int X, int Y)
 	mouseWarpingX = X;
 	mouseWarpingY = Y;
 	mouseWarping = true;
-	LogicalToOutput(&X, &Y);
+//	LogicalToOutput(&X, &Y);
 	SDL_WarpMouseInWindow(ghMainWnd, X, Y);
 }
 
@@ -73,7 +77,7 @@ void FocusOnCharInfo()
 	}
 	if (stat == -1)
 		return;
-	const auto &rect = ChrBtnsRect[stat];
+	const RECT32 &rect = ChrBtnsRect[stat];
 	SetCursorPos(rect.x + (rect.w / 2), rect.y + (rect.h / 2));
 }
 
@@ -264,14 +268,14 @@ bool false_avail(const char *name, int value)
 
 void StoreSpellCoords()
 {
-	constexpr int START_X = 20;
-	constexpr int END_X = 636;
-	constexpr int END_Y = 495;
-	constexpr int BOX_SIZE = 56;
+	const int START_X = 20;
+	const int END_X = 636;
+	const int END_Y = 495;
+	const int BOX_SIZE = 56;
 	speedspellcount = 0;
 	int xo = END_X, yo = END_Y;
 	for (int i = 0; i < 4; i++) {
-		std::uint64_t spells;
+		uint64_t spells;
 		switch (i) {
 		case RSPLTYPE_SKILL:
 			spells = plr[myplr]._pAblSpells;
@@ -288,10 +292,13 @@ void StoreSpellCoords()
 		default:
 			continue;
 		}
-		std::uint64_t spell = 1;
+		uint64_t spell = 1;
 		for (int j = 1; j < MAX_SPELLS; j++) {
 			if ((spell & spells)) {
-				speedspellscoords[speedspellcount] = { xo - 36, yo - 188 };
+				speedspellscoords[speedspellcount];
+				speedspellscoords[speedspellcount].x = xo - 36;
+				speedspellscoords[speedspellcount].y = yo - 188;
+
 				++speedspellcount;
 				xo -= BOX_SIZE;
 				if (xo == START_X) {
@@ -392,36 +399,36 @@ bool PeekMessageA(LPMSG lpMsg)
 
 	GameAction action;
 	if (GetGameAction(e, &action)) {
-		if (action.type != GameActionType::NONE) {
+		if (action.type != GameActionTypeNS::NONE) {
 			sgbControllerActive = true;
 
 			if (movie_playing) {
 				lpMsg->message = DVL_WM_KEYDOWN;
-				if (action.type == GameActionType::SEND_KEY)
+				if (action.type == GameActionTypeNS::SEND_KEY)
 					lpMsg->wParam = action.send_key.vk_code;
 				return true;
 			}
 		}
 
 		switch (action.type) {
-		case GameActionType::NONE:
+		case GameActionTypeNS::NONE:
 			break;
-		case GameActionType::USE_HEALTH_POTION:
+		case GameActionTypeNS::USE_HEALTH_POTION:
 			UseBeltItem(BLT_HEALING);
 			break;
-		case GameActionType::USE_MANA_POTION:
+		case GameActionTypeNS::USE_MANA_POTION:
 			UseBeltItem(BLT_MANA);
 			break;
-		case GameActionType::PRIMARY_ACTION:
+		case GameActionTypeNS::PRIMARY_ACTION:
 			PerformPrimaryAction();
 			break;
-		case GameActionType::SECONDARY_ACTION:
+		case GameActionTypeNS::SECONDARY_ACTION:
 			PerformSecondaryAction();
 			break;
-		case GameActionType::CAST_SPELL:
+		case GameActionTypeNS::CAST_SPELL:
 			PerformSpellAction();
 			break;
-		case GameActionType::TOGGLE_QUICK_SPELL_MENU:
+		case GameActionTypeNS::TOGGLE_QUICK_SPELL_MENU:
 			if (!invflag || BlurInventory()) {
 				if (!spselflag)
 					DoSpeedBook();
@@ -433,7 +440,7 @@ bool PeekMessageA(LPMSG lpMsg)
 				StoreSpellCoords();
 			}
 			break;
-		case GameActionType::TOGGLE_CHARACTER_INFO:
+		case GameActionTypeNS::TOGGLE_CHARACTER_INFO:
 			chrflag = !chrflag;
 			if (chrflag) {
 				questlog = false;
@@ -443,7 +450,7 @@ bool PeekMessageA(LPMSG lpMsg)
 				FocusOnCharInfo();
 			}
 			break;
-		case GameActionType::TOGGLE_QUEST_LOG:
+		case GameActionTypeNS::TOGGLE_QUEST_LOG:
 			if (!questlog) {
 				StartQuestlog();
 				chrflag = false;
@@ -452,7 +459,7 @@ bool PeekMessageA(LPMSG lpMsg)
 				questlog = false;
 			}
 			break;
-		case GameActionType::TOGGLE_INVENTORY:
+		case GameActionTypeNS::TOGGLE_INVENTORY:
 			if (invflag) {
 				BlurInventory();
 			} else {
@@ -464,18 +471,18 @@ bool PeekMessageA(LPMSG lpMsg)
 				FocusOnInventory();
 			}
 			break;
-		case GameActionType::TOGGLE_SPELL_BOOK:
+		case GameActionTypeNS::TOGGLE_SPELL_BOOK:
 			if (BlurInventory()) {
 				invflag = false;
 				spselflag = false;
 				sbookflag = !sbookflag;
 			}
 			break;
-		case GameActionType::SEND_KEY:
+		case GameActionTypeNS::SEND_KEY:
 			lpMsg->message = action.send_key.up ? DVL_WM_KEYUP : DVL_WM_KEYDOWN;
 			lpMsg->wParam = action.send_key.vk_code;
 			return true;
-		case GameActionType::SEND_MOUSE_CLICK:
+		case GameActionTypeNS::SEND_MOUSE_CLICK:
 			sgbControllerActive = false;
 			switch (action.send_mouse_click.button) {
 			case GameActionSendMouseClick::LEFT:

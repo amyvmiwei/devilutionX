@@ -1,4 +1,3 @@
-//HEADER_GOES_HERE
 #ifndef __TRACK_H__
 #define __TRACK_H__
 

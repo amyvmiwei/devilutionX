@@ -64,7 +64,7 @@ BOOL pfile_open_archive(BOOL update, DWORD save_num)
 	char FileName[MAX_PATH];
 
 	pfile_get_save_path(FileName, sizeof(FileName), save_num);
-	if (OpenMPQ(FileName, save_num))
+	if (OpenMPQ(FileName, false, save_num))
 		return TRUE;
 
 	return FALSE;
@@ -85,9 +85,17 @@ void pfile_get_save_path(char *pszBuf, DWORD dwBufSize, DWORD save_num)
 	if (gbMaxPlayers <= 1)
 		fmt = "%ssingle_%d.sv";
 #endif
-
 	GetPrefPath(path, MAX_PATH);
+
+#ifdef _XBOX
+	std::string strTmp(path);
+	strTmp += "saves\\";
+	CreateDirectory(strTmp.c_str(), NULL);
+
+	snprintf(pszBuf, MAX_PATH, fmt, strTmp.c_str(), save_num);
+#else
 	snprintf(pszBuf, MAX_PATH, fmt, path, save_num);
+#endif
 }
 
 void pfile_flush(BOOL is_single_player, DWORD save_num)
@@ -189,9 +197,7 @@ BYTE game_2_ui_class(const PlayerStruct *p)
 
 BOOL pfile_ui_set_hero_infos(BOOL(*ui_add_hero_info)(_uiheroinfo *))
 {
-	DWORD i, save_num;
-	char FileName[MAX_PATH];
-	char NewFileName[MAX_PATH];
+	DWORD i;
 	BOOL showFixedMsg;
 
 	memset(hero_names, 0, sizeof(hero_names));

@@ -12,6 +12,14 @@
 #include "StormLib.h"
 #include "StormCommon.h"
 
+  #ifndef _countof
+    #define _countof(x)  (sizeof(x) / sizeof(x[0]))
+  #endif
+
+#ifdef _DEBUG
+void assert_fail(int nLineNo, const char *pszFile, const char *pszFail);
+#endif
+
 /*****************************************************************************/
 /* Local functions                                                           */
 /*****************************************************************************/
@@ -167,7 +175,7 @@ bool OpenPatchedFile(HANDLE hMpq, const char * szFileName, HANDLE * PtrFile)
 /*****************************************************************************/
 
 //-----------------------------------------------------------------------------
-// SFileEnumLocales enums all locale versions within MPQ. 
+// SFileEnumLocales enums all locale versions within MPQ.
 // Functions fills all available language identifiers on a file into the buffer
 // pointed by plcLocales. There must be enough entries to copy the localed,
 // otherwise the function returns ERROR_INSUFFICIENT_BUFFER.
@@ -197,7 +205,7 @@ int STORMAPI SFileEnumLocales(
         return ERROR_INVALID_PARAMETER;
     if(IsPseudoFileName(szFileName, &dwFileIndex))
         return ERROR_INVALID_PARAMETER;
-    
+
     // Keep compiler happy
     dwMaxLocales = PtrMaxLocales[0];
     dwSearchScope = dwSearchScope;
@@ -258,7 +266,7 @@ bool STORMAPI SFileOpenFileEx(HANDLE hMpq, const char * szFileName, DWORD dwSear
             case SFILE_OPEN_FROM_MPQ:
             case SFILE_OPEN_BASE_FILE:
             case SFILE_OPEN_CHECK_EXISTS:
-                
+
                 // If this MPQ has no patches, open the file from this MPQ directly
                 if(ha->haPatch == NULL || dwSearchScope == SFILE_OPEN_BASE_FILE)
                 {
@@ -283,7 +291,7 @@ bool STORMAPI SFileOpenFileEx(HANDLE hMpq, const char * szFileName, DWORD dwSear
             case SFILE_OPEN_LOCAL_FILE:
 
                 // Open a local file
-                return OpenLocalFile(szFileName, PtrFile); 
+                return OpenLocalFile(szFileName, PtrFile);
 
             default:
 
@@ -383,7 +391,7 @@ bool STORMAPI SFileHasFile(HANDLE hMpq, const char * szFileName)
 bool STORMAPI SFileCloseFile(HANDLE hFile)
 {
     TMPQFile * hf = (TMPQFile *)hFile;
-    
+
     if(!IsValidFileHandle(hFile))
     {
         SetLastError(ERROR_INVALID_HANDLE);

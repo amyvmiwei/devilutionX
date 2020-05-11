@@ -1,4 +1,3 @@
-//HEADER_GOES_HERE
 #ifndef __PORTAL_H__
 #define __PORTAL_H__
 

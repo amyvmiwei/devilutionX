@@ -1,4 +1,3 @@
-//HEADER_GOES_HERE
 #ifndef __SCROLLRT_H__
 #define __SCROLLRT_H__
 
@@ -29,7 +28,7 @@ void DrawAndBlit();
 
 /* data */
 
-/** used in 1.00 debug */
+/* used in 1.00 debug */
 extern char *szMonModeAssert[18];
 extern char *szPlrModeAssert[12];
 

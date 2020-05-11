@@ -1,4 +1,3 @@
-//HEADER_GOES_HERE
 #ifndef __QUESTS_H__
 #define __QUESTS_H__
 

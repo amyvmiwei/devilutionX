@@ -1,4 +1,3 @@
-//HEADER_GOES_HERE
 #ifndef __SHA_H__
 #define __SHA_H__
 
