@@ -1,3 +1,4 @@
+//HEADER_GOES_HERE
 #ifndef __SPELLS_H__
 #define __SPELLS_H__
 

@@ -1,3 +1,4 @@
+//HEADER_GOES_HERE
 #ifndef __SYNC_H__
 #define __SYNC_H__
 

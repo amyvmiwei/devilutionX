@@ -1,3 +1,4 @@
+//HEADER_GOES_HERE
 #ifndef __STORES_H__
 #define __STORES_H__
 
