@@ -6,6 +6,12 @@
 #ifndef __MPQAPI_H__
 #define __MPQAPI_H__
 
+DEVILUTION_BEGIN_NAMESPACE
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void mpqapi_remove_hash_entry(const char *pszName);
 void mpqapi_alloc_block(int block_offset, int block_size);
 _BLOCKENTRY *mpqapi_new_block(int *block_index);
@@ -23,5 +29,10 @@ BOOL mpqapi_flush_and_close(const char *pszArchive, BOOL bFree, DWORD dwChar);
 /* rdata */
 
 /* data */
+#ifdef __cplusplus
+}
+#endif
+
+DEVILUTION_END_NAMESPACE
 
 #endif /* __MPQAPI_H__ */

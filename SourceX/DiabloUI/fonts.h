@@ -6,11 +6,16 @@
 
 #include "DiabloUI/art.h"
 
-#ifndef TTF_FONT_PATH
+#ifndef TTF_FONT_DIR
 #ifdef _XBOX
-#define TTF_FONT_PATH "D:\\assets\\CharisSILB.ttf"
+#define TTF_FONT_DIR "D:\\assets\\"
 #else
-#define TTF_FONT_PATH "CharisSILB.ttf"
+#define TTF_FONT_DIR ""
+#endif
+#endif
+
+#ifndef TTF_FONT_NAME
+#define TTF_FONT_NAME "CharisSILB.ttf"
 #endif
 #endif
 

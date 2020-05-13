@@ -4,6 +4,8 @@
  * Various global structures.
  */
 
+DEVILUTION_BEGIN_NAMESPACE
+
 //////////////////////////////////////////////////
 // control
 //////////////////////////////////////////////////
@@ -461,13 +463,11 @@ typedef struct TSnd {
 	int start_tc;
 } TSnd;
 
-#pragma pack(push, 1)
 typedef struct TSFX {
 	unsigned char bFlags;
 	char *pszName;
 	TSnd *pSnd;
 } TSFX;
-#pragma pack(pop)
 
 //////////////////////////////////////////////////
 // monster
@@ -1585,3 +1585,5 @@ typedef struct TDataInfo {
 	DWORD destOffset;
 	DWORD size;
 } TDataInfo;
+
+DEVILUTION_END_NAMESPACE
