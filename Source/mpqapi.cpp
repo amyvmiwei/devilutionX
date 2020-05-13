@@ -14,10 +14,10 @@ DEVILUTION_BEGIN_NAMESPACE
 
 DWORD sgdwMpqOffset;
 char mpq_buf[4096];
-_HASHENTRY *sgpHashTbl;
+	_HASHENTRY *sgpHashTbl;
 /** Has the savegame-file been modified in memory. */
 BOOL save_archive_modified;
-_BLOCKENTRY *sgpBlockTbl;
+	_BLOCKENTRY *sgpBlockTbl;
 /** Is the savegame-file currently open. */
 BOOLEAN save_archive_open;
 BOOLEAN mpqapi_reg_store_modification_time(char *pbData, DWORD dwLen);
@@ -39,7 +39,7 @@ void mpqapi_xor_buf(char *pbData);
 HANDLE sghArchive = INVALID_HANDLE_VALUE;
 
 BOOL mpqapi_set_hidden(const char *pszArchive, BOOL hidden)
-{
+	{
 	DWORD dwFileAttributes;
 	DWORD dwFileAttributesToSet;
 
@@ -51,10 +51,10 @@ BOOL mpqapi_set_hidden(const char *pszArchive, BOOL hidden)
 		return TRUE;
 	else
 		return SetFileAttributes(pszArchive, dwFileAttributesToSet);
-}
+	}
 
 void mpqapi_store_creation_time(const char *pszArchive, DWORD dwChar)
-{
+	{
 	HANDLE handle;
 	struct _WIN32_FIND_DATAA FindFileData;
 	char dst[160];
@@ -67,11 +67,11 @@ void mpqapi_store_creation_time(const char *pszArchive, DWORD dwChar)
 			*((FILETIME *)(dst) + dwChar * 2) = FindFileData.ftCreationTime;
 			mpqapi_reg_store_modification_time(dst, 160);
 		}
+		}
 	}
-}
 
 BOOL mpqapi_reg_load_modification_time(char *dst, int size)
-{
+	{
 	char *pszDst;
 	char *pbData;
 	DWORD nbytes_read;
@@ -96,10 +96,10 @@ BOOL mpqapi_reg_load_modification_time(char *dst, int size)
 	}
 
 	return TRUE;
-}
+	}
 
 void mpqapi_xor_buf(char *pbData)
-{
+	{
 	DWORD mask;
 	char *pbCurrentData;
 	int i;
@@ -112,10 +112,10 @@ void mpqapi_xor_buf(char *pbData)
 		pbCurrentData++;
 		mask = _rotl(mask, 1);
 	}
-}
+	}
 
 void mpqapi_store_default_time(DWORD dwChar)
-{
+	{
 	/*
 	DWORD idx;
 	char dst[160];
@@ -146,7 +146,7 @@ BOOLEAN mpqapi_reg_store_modification_time(char *pbData, DWORD dwLen)
 			mpqapi_xor_buf(pbDataToXor);
 			i--;
 		} while (i);
-	}
+}
 
 #ifdef SPAWN
 //	return SRegSaveData("Diablo", "Audio Playback ", 0, (BYTE *)pbData, dwLen);
@@ -256,7 +256,7 @@ int mpqapi_get_hash_index(short index, int hash_a, int hash_b, int locale)
 	return -1;
 }
 
-void mpqapi_remove_hash_entries(BOOL(*fnGetName)(DWORD, char *))
+void mpqapi_remove_hash_entries(BOOL (*fnGetName)(DWORD, char *))
 {
 	DWORD dwIndex, i;
 	char pszFileName[MAX_PATH];
@@ -596,7 +596,7 @@ BOOL mpqapi_flush_and_close(const char *pszArchive, BOOL bFree, DWORD dwChar)
 				ret = TRUE;
 			else
 				ret = FALSE;
-		}
+}
 	}
 	CloseMPQ(pszArchive, bFree, dwChar);
 	return ret;

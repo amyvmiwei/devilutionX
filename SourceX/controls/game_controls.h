@@ -75,8 +75,8 @@ struct GameAction {
 
 //private:
 	GameActionTypeNS::GameActionType type;
-	GameActionSendKey send_key;
-	GameActionSendMouseClick send_mouse_click;
+		GameActionSendKey send_key;
+		GameActionSendMouseClick send_mouse_click;
 
 };
 

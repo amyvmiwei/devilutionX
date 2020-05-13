@@ -41,7 +41,7 @@ enum UiFlags {
 };
 
 class UiItemBase
-{
+	{
 public:
 	UiItemBase(SDL_Rect rect, int flags)
 	{
@@ -98,7 +98,7 @@ public:
 //=============================================================================
 
 class UiImage : public UiItemBase
-{
+	{
 public:
 	UiImage(Art *art, SDL_Rect rect, int flags = 0) : UiItemBase(rect, flags)
 	{
@@ -258,7 +258,7 @@ public:
 // A button (uses Diablo sprites)
 
 class UiButton : public UiItemBase
-{
+	{
 public:
 	UiButton(Art *art, const char *text, void (*action)(), SDL_Rect rect, int flags = 0) : UiItemBase(rect, flags)
 	{
@@ -270,11 +270,11 @@ public:
 		m_render_cache = NULL;
 	}
 
-enum FrameKey {
-	DEFAULT = 0,
-	PRESSED,
-	DISABLED
-};
+	enum FrameKey {
+		DEFAULT = 0,
+		PRESSED,
+		DISABLED
+	};
 
 //private:
 	Art *m_art;
@@ -296,7 +296,7 @@ enum FrameKey {
 //=============================================================================
 
 class UiListItem 
-{
+	{
 public:
 	UiListItem(const char *text = "", int value = 0)
 	{
@@ -327,11 +327,11 @@ public:
 		m_y = y;
 		m_width = item_width;
 		m_height = item_height;
-	};
+};
 
 	~UiList()
 	{
-	};
+};
 
 	SDL_Rect itemRect(int i)
 	{
@@ -362,7 +362,7 @@ public:
 	Uint16 m_width, m_height;
 	int m_length;
 	std::vector<UiListItem*> m_vecItems;
-};
+	};
 
 
 typedef std::vector<UiItemBase*> vUiItemBase;

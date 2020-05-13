@@ -448,7 +448,7 @@ void diablo_parse_flags(int argc, char **argv)
 			debug_mode_key_inverted_v = TRUE;
 		} else if (strcasecmp("-$", argv[i]) == 0) {
 			debug_mode_dollar_sign = TRUE;
-		/*
+			/*
 		} else if (strcasecmp("-b", argv[i]) == 0) {
 			debug_mode_key_b = 1;
 		*/
@@ -456,7 +456,7 @@ void diablo_parse_flags(int argc, char **argv)
 			debug_mode_key_d = TRUE;
 		} else if (strcasecmp("-i", argv[i]) == 0) {
 			debug_mode_key_i = TRUE;
-		/*
+			/*
 		} else if (strcasecmp("-j", argv[i]) == 0) {
 			debug_mode_key_J_trigger = argv[++i];
 		*/

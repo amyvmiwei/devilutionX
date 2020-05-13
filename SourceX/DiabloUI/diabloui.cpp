@@ -644,7 +644,7 @@ void UiPollAndRender()
 
 namespace {
 
-void Render(UiText* ui_text)
+void Render(UiText *ui_text)
 {
 	DrawTTF(ui_text->m_text,
 	    ui_text->m_rect,

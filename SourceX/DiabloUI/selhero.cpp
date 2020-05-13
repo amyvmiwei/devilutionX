@@ -389,6 +389,7 @@ void selhero_ClassSelector_Esc()
 
 void selhero_Name_Select(int value)
 {
+
 	if (!UiValidPlayerName(selhero_heroInfo.name)) {
 		selhero_Free();
 		UiSelOkDialog(title, "Invalid name. A name cannot contain spaces, reserved characters, or reserved words.\n", false);

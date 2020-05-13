@@ -85,6 +85,7 @@ void pfile_get_save_path(char *pszBuf, DWORD dwBufSize, DWORD save_num)
 	if (gbMaxPlayers <= 1)
 		fmt = "%ssingle_%d.sv";
 #endif
+
 	GetPrefPath(path, MAX_PATH);
 
 #ifdef _XBOX

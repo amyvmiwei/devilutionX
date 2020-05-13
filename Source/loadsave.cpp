@@ -237,7 +237,7 @@ void CopyShorts(const void *src, const int n, void *dst)
 {
 	const unsigned short *s = reinterpret_cast<const unsigned short *>(src);
 	unsigned short *d = reinterpret_cast<unsigned short *>(dst);
-	for(int i = 0; i < n; i++) {
+	for (int i = 0; i < n; i++) {
 		CopyShort(s, d);
 		++d;
 		++s;
@@ -257,7 +257,7 @@ void CopyInts(const void *src, const int n, void *dst)
 {
 	const unsigned int *s = reinterpret_cast<const unsigned int *>(src);
 	const unsigned int *d = reinterpret_cast<unsigned int *>(dst);
-	for(int i = 0; i < n; i++) {
+	for (int i = 0; i < n; i++) {
 		CopyInt(s, (void*)d);
 		++d;
 		++s;
