@@ -1,8 +1,4 @@
-//
-// DiabloX v1.0
-//
-
-This is a port of the reverse engineered Diablo engine DevilutionX (https://github.com/diasurgical/devilutionX).
+DevilutionX (Diablo 1) for the original Xbox
 
 Controls:
 Left analog or D-Pad: move hero
